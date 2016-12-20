@@ -1,0 +1,63 @@
+[{
+ "name":"Meat Lover",
+ "Beef, lamb":0.77,
+ "Chicken, fish, pork":0.34,
+  "Dairy":0.46,
+ "Cereals, breads":0.30,
+ "Vegetables":0.12,
+ "Fruit": 0.15,
+ "Oils, spreads": 0.18,
+ "Snacks, sugar": 0.06,
+ "Drinks":0.14
+},
+{
+ "name":"Average",
+ "Beef, lamb":0.77,
+ "Chicken, fish, pork":0.34,
+  "Dairy":0.46,
+ "Cereals, breads":0.30,
+ "Vegetables":0.12,
+ "Fruit": 0.15,
+ "Oils, spreads": 0.18,
+ "Snacks, sugar": 0.06,
+ "Drinks":0.14
+},
+{
+ "name":"No Beef",
+ "Beef, lamb":0.77,
+ "Chicken, fish, pork":0.34,
+  "Dairy":0.46,
+ "Cereals, breads":0.30,
+ "Vegetables":0.12,
+ "Fruit": 0.15,
+ "Oils, spreads": 0.18,
+ "Snacks, sugar": 0.06,
+ "Drinks":0.14
+
+},
+{
+ "name":"Vegetarian",
+ "Beef, lamb":0.77,
+ "Chicken, fish, pork":0.34,
+  "Dairy":0.46,
+ "Cereals, breads":0.30,
+ "Vegetables":0.12,
+ "Fruit": 0.15,
+ "Oils, spreads": 0.18,
+ "Snacks, sugar": 0.06,
+ "Drinks":0.14
+
+},
+{
+ "name":"Vegan",
+ "Beef, lamb":0.77,
+ "Chicken, fish, pork":0.34,
+  "Dairy":0.46,
+ "Cereals, breads":0.30,
+ "Vegetables":0.12,
+ "Fruit": 0.15,
+ "Oils, spreads": 0.18,
+ "Snacks, sugar": 0.06,
+ "Drinks":0.14
+}
+]

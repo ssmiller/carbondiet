@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <link href="https://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://apps.bdimg.com/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script src="https://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <!-- Load c3.css -->
+    <link href="c3-0.4.11/c3.css" rel="stylesheet" type="text/css">
+    <link href="d3.slider.css" rel="stylesheet" type="text/css">
+    <link href="chartstyles.css" rel="stylesheet" type="text/css">
+
+    <!-- Load d3.js and c3.js -->
+    <script src="c3-0.4.11/c3.min.js"></script>
+    <script src="d3.slider.js"></script>
+
+    <!-- <link href="style.css" rel="stylesheet"> -->
+    <body>
+      <h1>Shrink Your Carbon Footprint -- Food Choices</h1>
+      <div class = "col-md-12 exploration_text" id="text1">
+        <p>EXPLANATION HERE</p>
+
+<p></p>
+      </div>
+
+      <div class="container">
+        <div class="row">
+          <div class='col-md-12' >
+            <div id="chart0">
+              <!-- <p>Lorem ipsum dolor sit amet</p> -->
+
+            </div>
+          </div>
+          <!-- <div class='col-md-12' > -->
+            <!-- <div id="chart0a"> -->
+              <!-- <p>Lorem ipsum dolor sit amet</p> -->
+
+            <!-- </div> -->
+          <!-- </div> -->
+        </div>
+      </div>
+
+
+
+      <div class = "col-md-12 exploration_text" id="text2">
+        <!-- <h3>Discussion Title</h3> -->
+        <p>Despite the fact that 60% of each of these diets are the same, the footprints vary greatly.  The ‘Average diet’ is based on the typical American diet and has a footprint of 2.5 t CO<sub>2</sub>equivalent per year.  The Meat Lover is 3.3 t, No Beef 1.9 t, the Vegetarian 1.7 t and the Vegan 1.5 t.</p>
+        <p>Read more at <a href="http://shrinkthatfootprint.com/shrink-your-food-footprint">http://shrinkthatfootprint.com/shrink-your-food-footprint</a></p>
+
+
+        <p>By making changes in our individual diets, we can save CO<sub>2</sub>!  What would happen if you changed your diet for a year?</p>
+
+      </div>
+
+      <div class="col-md-4 diet_selector">
+        <p><strong>Instructions: </strong><br>
+        </p>
+        <p>Choose your current diet: <p>
+          <select id="dietselector1">
+            <!-- <select onchange = "getchoice1()" id="dietselector1"> -->
+  <option value="meat">Meat Lover</option>
+  <option value="average" selected>Average</option>
+  <option value="nobeef">No Beef</option>
+  <option value="vegetarian">Vegetarian</option>
+  <option value="vegan">Vegan</option>
+</select>
+      </div>
+
+            <div class="col-md-4 diet_selector" >
+        <p><strong>Instructions: </strong><br>
+        </p>
+        <p>Choose a different diet to try for a year:<p>
+          <select onchange = "getchoice2()" id="dietselector2">
+  <option value="meat">Meat Lover</option>
+  <option value="average" selected>Average</option>
+  <option value="nobeef">No Beef</option>
+  <option value="vegetarian">Vegetarian</option>
+  <option value="vegan">Vegan</option>
+</select>
+      </div>
+
+<div class="col-md-4 placeholder" id="placeholder">
+</div>
+
+      <div class="container">
+          <div class="row">
+            <div class= "col-md-4" >
+                <div id="chart1"></div>
+                <div class ='button'>
+                  <button class='small' onclick='c1_all();'>Show All</button>
+                </div>
+            </div>
+            
+            <div class= "col-md-4" >
+              <p></p>
+              <p></p>
+              <p></p>
+                <div id="chart2"></div>
+                <div class ='button'>
+                  <button class='small' onclick='c2_all();'>Show All</button>
+                </div>
+            </div>
+
+            <div class= "col-md-4" >
+                <div id="chart3"></div>
+                <div class ='button'>
+                  <button class='small' onclick='c3_breakdown();'>Show Breakdown</button>
+                  <button class='small' onclick='c3_total();'>Show Total</button>
+                  <button class='small' onclick='c3_all();'>Show Both</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class= "col-md-6" >
+                <div id="chart3"></div>
+                
+            </div>
+            <div class= "col-md-4" >
+                <div id="chart4"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class= "col-md-8" >
+                <div id="chart5"></div>
+                
+            </div>
+            <div class= "col-md-4" >
+                <div id="chart6"></div>
+            </div>
+        </div>
+    </div>
+
+      <div class = "col-md-12 exploration_text" id="text3">
+        <p></p>
+
+
+
+
+
+
+<p> </p>
+      </div>
+
+
+
+
+      <script type="text/javascript">
+
+
+
+
+    var foodgroups = ["Beef, lamb","Chicken, fish, pork","Dairy","Cereals, breads", "Vegetables","Fruit","Oils, spreads","Snacks, sugar","Drinks"]
+    var diets = ['foodgroup', 'Meat Lover', 'Average', 'No Beef', 'Vegetarian', 'Vegan']
+    var foodData = [
+          ['x', 'Meat Lover', 'Average', 'No Beef', 'Vegetarian', 'Vegan'],
+          ["Beef, lamb", 1.57, 0.77, 0.0, 0.0, 0.0 ],
+          ["Chicken, fish, pork", 0.4, 0.34, 0.5, 0.0, 0.0],
+          ["Dairy", 0.5, 0.46, 0.46, 0.4, 0.0],
+          ["Cereals, breads", 0.2, 0.3, 0.3, 0.4,0.6],
+          ["Vegetables", 0.1, 0.12, 0.12, 0.25, 0.3],
+          ["Fruit", 0.1, 0.15, 0.15, 0.3, 0.3],
+          ["Oils, spreads", 0.2, 0.18, 0.18, 0.18, 0.18],
+          ["Snacks, sugar", 0.06, 0.06, 0.06, 0.06, 0.06],
+          ["Drinks", 0.14, 0.14, 0.14, 0.14, 0.14]
+          ]
+
+
+    var food1 = [
+          ['x', "Meat Lover"],
+          ["Beef, lamb", 1.57],
+          ["Chicken, fish, pork", 0.4],
+          ["Dairy", 0.5],
+          ["Cereals, breads", 0.2],
+          ["Vegetables",0.1],
+          ["Fruit",0.1],
+          ["Oils, spreads",0.2],
+          ["Snacks, sugar",0.06],
+          ["Drinks",0.14],
+          // ["Total", 3.3]
+      ]
+
+    // console.log(food1);
+
+    var food2 = [
+          ['x', "Average"],
+          ["Beef, lamb", 0.77],
+          ["Chicken, fish, pork", 0.34],
+          ["Dairy", 0.46],
+          ["Cereals, breads", 0.3],
+          ["Vegetables",0.12],
+          ["Fruit",0.15],
+          ["Oils, spreads",0.18],
+          ["Snacks, sugar",0.06],
+          ["Drinks",0.14], 
+          // ["Total", 3.3]   
+      ]
+
+      // console.log(food2);
+      var nobeef = [
+      // var food3 = [
+          ['x', "No Beef"],
+          ["Beef, lamb", 0],
+          ["Chicken, fish, pork", 0.5],
+          ["Dairy", 0.46],
+          ["Cereals, breads", 0.3],
+          ["Vegetables",0.1],
+          ["Fruit",0.1],
+          ["Oils, spreads",0.2],
+          ["Snacks, sugar",0.06],
+          ["Drinks",0.14],
+          // ["Total", 3.3]
+      ]
+
+      var food4 = [
+          ['x', "Vegetarian"],
+          ["Beef, lamb", 0],
+          ["Chicken, fish, pork", 0.5],
+          ["Dairy", 0.46],
+          ["Cereals, breads", 0.3],
+          ["Vegetables",0.1],
+          ["Fruit",0.1],
+          ["Oils, spreads",0.2],
+          ["Snacks, sugar",0.06],
+          ["Drinks",0.14],
+          // ["Total", 3.3]
+      ]
+
+      var food5 = [
+          ['x', "Vegan"],
+          ["Beef, lamb", 0],
+          ["Chicken, fish, pork", 0.5],
+          ["Dairy", 0.46],
+          ["Cereals, breads", 0.3],
+          ["Vegetables",0.1],
+          ["Fruit",0.1],
+          ["Oils, spreads",0.2],
+          ["Snacks, sugar",0.06],
+          ["Drinks",0.14],
+          // ["Total", 3.3]
+      ]
+
+      var diettype = food2;
+      var newdiettype = food2;
+
+
+
+//Can I build the food selection dynamically?
+
+    // console.log(food2[0] - food1[0]);
+    // console.log(food2[1] - food1[1]);
+    // console.log(food2["Beef, lamb"]);
+    // console.log(food2[2][2]);
+
+
+      function calculateCarbonSaved(olddiet, newdiet) {
+        saved = [] // empty array
+        // console.log(saved);
+        saved[0] = ["x","title"] // create the header array
+        // console.log(saved);
+        sum = 0;  //create a running total for the carbon savings
+        // console.log(sum);
+
+      for (i = 1 ; i < olddiet.length ; i++) { 
+        saved[i] = []; // make a new array
+        // console.log(saved);
+        saved[i][0] = olddiet[i][0]; // save the first column (the name)
+        // console.log(olddiet[i][0]);
+        saved[i][1] = olddiet[i][1]-newdiet[i][1];  // subtract and save the second column (new value)
+        sum += olddiet[i][1]-newdiet[i][1]; 
+      // console.log(sum)
+      } 
+      // console.log(sum);
+    saved[0][1] = "Carbon Savings by food type";
+    saved[10] = [];
+    saved[10][0] = "Total";
+    saved[10][1] = sum;
+      return saved;
+  }
+      // console.log(diettype);
+      // console.log(newdiettype);
+      carbonSaved = calculateCarbonSaved(diettype, newdiettype);
+      // console.log(carbonSaved);
+
+      // carbonSavedTime = calculateCarbonSaved (diettype, newdiettype)
+
+
+    var chart0 = c3.generate({
+title: {
+  text: "Sample Diet Footprints"
+},
+
+  data: {
+      x: 'x',
+        
+      columns: [
+          ['x', 'Meat Lover', 'Average', 'No Beef', 'Vegetarian', 'Vegan'],
+          ["Beef, lamb", 1.55, 0.77, 0.0, 0.0, 0.0  ],
+          ["Chicken, fish, pork", 0.4, 0.34,0.5,0.0,0.0],
+          ["Dairy", 0.6, 0.46,0.46,0.4,0.0],
+          ["Cereals, breads", 0.2,0.3,0.3,0.4,0.6],
+          ["Vegetables", 0.1,0.12,0.12,0.25,0.3],
+          ["Fruit", 0.1,0.15,0.15,0.3,0.3],
+          ["Oils, spreads", 0.18,0.18,0.18,0.12,0.12],
+          ["Snacks, sugar", 0.06,0.06,0.06,0.06,0.06],
+          ["Drinks", 0.14,0.14,0.14,0.14,0.14]
+      ],
+
+      groups: [
+            
+            foodgroups
+        ],
+        order: null,
+      type: 'bar',  
+
+  
+
+  },
+  bar: {
+        width: {
+            ratio: 0.5 // this makes bar width 50% of length between ticks
+          }
+        },
+  //http://stackoverflow.com/questions/32457291/how-to-format-number-in-d3-js-c3-js
+  tooltip: {
+        format: {
+            value: function(value) {
+                return d3.format(",.2f")(value)
+            }
+        },
+        grouped: false,
+    },
+  grid: {
+        y: {
+            lines: [
+                {value: 0, text: '', position: 'middle'}
+            ],
+            // show: true,
+        },
+        x: {
+          // show: true,
+        },
+    },
+  axis: {
+      x: {
+          type: 'category',
+      },
+      y: {
+        label: 
+        {
+          text: 't Carbon (CO2) equivalent / year',
+          position: 'outer-middle',
+        }
+      }
+  },
+  padding: {  //https://github.com/c3js/c3/issues/219
+    // left: 50,
+    right: 10
+  },
+  bindto: '#chart0'
+});
+
+
+    //////// Current Diet.  Assumes Average as default, but can be changed by user
+  var chart1 = c3.generate({
+  title: {
+  text: "Your Current Diet"
+
+},
+
+  data: {
+      x: 'x',
+
+      columns: diettype,  // need to update to change this variable based on the user selection
+      groups: [
+            
+            foodgroups
+        ],
+      order: null,
+      type: 'bar',
+
+
+  },
+  bar: {
+        width: {
+            ratio: 0.3 // this makes bar width 50% of length between ticks
+          }
+        },
+  legend: {
+          // position: 'right'
+      },
+  tooltip: {
+        format: {
+            value: function(value) {
+                return d3.format(",.2f")(value)
+            }
+        },
+        grouped: false,
+    },
+  grid: {
+        x: {
+          // show: true
+        },
+        y: {
+            // show: true,
+            lines: [
+                {value: 0, text: '', position: 'middle'}
+            ]
+        }
+    },
+  axis: {
+    y: {
+       label: {
+        text: 't Carbon (CO2) equivalent / year',
+        position: 'outer-middle',
+        
+      },
+      max: 3.5,
+            min: 0,
+
+       tick: {
+        format: d3.format(",.2f")
+       }
+   },
+      x: {
+          // padding: {right: 1000000},
+          type: 'category',
+          tick: {
+              // fit: true,
+              format: '%Y',
+              // culling: false,
+          }
+        }
+      
+  },
+  padding: {  //https://github.com/c3js/c3/issues/219
+    // left: 50,
+    right: 10
+  },
+  bindto: '#chart1'
+});
+
+
+//////// New Diet Type
+var chart2 = c3.generate({
+  title: {
+  text: "Your New Diet"
+
+},
+
+  data: {
+      x: 'x',
+
+      columns: newdiettype,  // need to update to change this variable based on the user selection
+      groups: [
+            
+            foodgroups
+        ],
+      order: null,
+      type: 'bar',
+
+
+  },
+  bar: {
+        width: {
+            ratio: 0.3 // this makes bar width 50% of length between ticks
+          }
+        },
+  legend: {
+          // position: 'right'
+      },
+  tooltip: {
+        format: {
+            value: function(value) {
+              return d3.format(",.2f")(value)
+            },   
+        },
+        grouped: false,
+    },
+  grid: {
+        x: {
+          // show: true
+        },
+        y: {
+            // show: true,
+            lines: [
+                {value: 0, text: '', position: 'middle'}
+            ]
+        }
+    },
+  axis: {
+    y: {
+       label: {
+        text: 't Carbon (CO2) equivalent / year',
+        position: 'outer-middle',
+        
+      },
+      max: 3.5,
+            min: 0,
+
+       tick: {
+        format: d3.format(",.2f")
+       }
+   },
+      x: {
+          // padding: {right: 1000000},
+          type: 'category',
+          tick: {
+              // fit: true,
+              format: '%Y',
+              // culling: false,
+          }
+        }
+      
+  },
+  padding: {  //https://github.com/c3js/c3/issues/219
+    // left: 50,
+    right: 10
+  },
+  bindto: '#chart2'
+});
+
+////////////  Carbon Savings
+var chart3 = c3.generate({
+  title: {
+  text: "Carbon Savings"
+
+},
+
+  data: {
+      x: 'x',
+
+      columns: carbonSaved,  // need to update to change this variable based on the user selection
+      order: null,
+      type: 'bar',
+      labels: {
+        format:  {
+            Total: d3.format('.2f')  //show Total carbon savings label, only.  The other items are not labeled to reduce screen clutter.
+            }
+        }
+      
+
+
+  },
+  // bar: {  // not sure if I can control this setting separately if showing only the total
+  //       width: {
+  //           ratio: 0.3 // this makes bar width 50% of length between ticks
+  //         }
+  //       },
+  legend: {
+          // position: 'right'
+      },
+  tooltip: {
+        format: {
+            value: function(value) {
+                return d3.format(",.2f")(value)
+            }
+        },
+        grouped: false,
+    },
+  grid: {
+        x: {
+          // show: true
+        },
+        y: {
+            // show: true,
+            lines: [
+                {value: 0, text: '', position: 'middle'}
+            ]
+        }
+    },
+  axis: {
+    y: {
+       label: {
+        text: 't Carbon (CO2) equivalent / year',
+        position: 'outer-middle',
+      },
+
+       tick: {
+        format: d3.format(",.2f")
+       }
+   },
+   // rotated: true,
+      x: {
+          // padding: {right: 1000000},
+          type: 'category',
+          tick: {
+              // fit: true,
+              format: '%Y',
+              // culling: false,
+          }
+        }
+      
+  },
+  padding: {  //https://github.com/c3js/c3/issues/219
+    // left: 50,
+    right: 10
+  },
+  bindto: '#chart3'
+});
+
+
+////////////  
+
+/////////
+
+
+function c1_all() {
+  chart1.show(["Beef, lamb","Chicken, fish, pork","Dairy","Cereals, breads", "Vegetables","Fruit","Oils, spreads","Snacks, sugar","Drinks"]);
+}
+function c2_all() {
+  chart2.show(["Beef, lamb","Chicken, fish, pork","Dairy","Cereals, breads", "Vegetables","Fruit","Oils, spreads","Snacks, sugar","Drinks"]);
+}
+
+function c3_all() {
+  chart3.show(["Beef, lamb","Chicken, fish, pork","Dairy","Cereals, breads", "Vegetables","Fruit","Oils, spreads","Snacks, sugar","Drinks", "Total"]);
+}
+
+function c3_breakdown() {
+  chart3.show(["Beef, lamb","Chicken, fish, pork","Dairy","Cereals, breads", "Vegetables","Fruit","Oils, spreads","Snacks, sugar","Drinks"]);
+  chart3.hide(["Total"]);
+}
+
+function c3_total() {
+  chart3.hide(["Beef, lamb","Chicken, fish, pork","Dairy","Cereals, breads", "Vegetables","Fruit","Oils, spreads","Snacks, sugar","Drinks"]);
+  chart3.show(["Total"]);
+}
+
+//http://jsfiddle.net/km97cdL3/1/
+//http://stackoverflow.com/questions/30163060/update-chart-using-based-on-dropdown-list
+$("#dietselector1").change(function (evt) {
+        var foodSelection = eval($("#dietselector1").val());
+        console.log(foodSelection);
+        // chart1.flush();
+        var chart1 = c3.generate({
+            data: {
+                columns: foodSelection,
+                // type: 'pie' 
+            }
+        });
+    });
+
+
+
+
+// function matchFoods(food) {
+//   var choice;
+//   switch (food)  {
+//     case "meat":
+//       choice = food1;
+//       break;
+//     case "average":
+//       choice = food2;
+//       break;
+//     case "nobeef":
+//       choice = food3;
+//       break;
+//     case "vegetarian":
+//       choice = food4;
+//       break;
+//     case "vegan":
+//       choice = food5;
+//       break;
+//   };
+//   return choice;
+// }
+
+// function getchoice1(){
+// // var foodchoice = d3.select("#dietselector1").property("value")
+// var f1 = document.getElementById("dietselector1");
+// // console.log(f1);
+// var foodchoice1 = f1.options[f1.selectedIndex].value;
+// diettype = matchFoods(foodchoice1);
+// console.log(foodchoice1);
+// chart1.flush();
+
+
+// console.log(chart1);
+// console.log(diettype);
+// }
+
+
+// function getchoice2(){
+// // var foodchoice = d3.select("#dietselector1").property("value")
+// var f1 = document.getElementById("dietselector2");
+// // console.log(f1);
+// // console.log(f1);
+// var foodchoice2 = f1.options[f1.selectedIndex].value;
+// newdiettype = matchFoods(foodchoice2);
+// console.log(foodchoice2);
+// // console.log(newdiettype);
+// }
+
+</script>
+    </body>
+  </head>
+</html>
