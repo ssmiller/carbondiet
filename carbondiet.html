@@ -9,18 +9,30 @@
     <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <!-- Load c3.css -->
     <link href="c3-0.4.11/c3.css" rel="stylesheet" type="text/css">
-    <link href="d3.slider.css" rel="stylesheet" type="text/css">
+    <!-- <link href="d3.slider.css" rel="stylesheet" type="text/css"> -->
     <link href="chartstyles.css" rel="stylesheet" type="text/css">
 
     <!-- Load d3.js and c3.js -->
     <script src="c3-0.4.11/c3.min.js"></script>
-    <script src="d3.slider.js"></script>
+    <!--  <script src="d3.slider.js"></script> -->
 
     <!-- <link href="style.css" rel="stylesheet"> -->
     <body>
       <h1>Shrink Your Carbon Footprint -- Food Choices</h1>
+
+
       <div class = "col-md-12 exploration_text" id="text1">
-        <p>EXPLANATION HERE</p>
+        <h2>Food footprints</h2>
+
+<p>A person’s food footprint (foodprint) is all the emissions that result from the production, transportation and storage of the food supplied to meet their consumption needs.  We chose to focus on food supply, rather than only food consumption, because a large proportion of food is lost at retail and consumer level.  Although emissions also occur when people transport, store and cook food, these emissions are omitted from our calculations as they are captured in travel and housing footprints.  For more information on travel and housing footprints, see <a href="www.shrinkthatfootprint.com">shrinkthatfoodprint.com</a>.  </p>
+
+<p>Just like in any other analysis of food it makes sense to think of our food footprint in terms of different food groups. Using a combination of LCA and IO-LCA analysis together with average food consumption statistics we can estimate what a typical food footprint looks like. The average US food footprint is roughly 2.5 tons CO<sub>2</sub>equivalent (t CO<sub>2</sub>e).  The biggest sources of emissions are from the beef (0.8 t), dairy (0.5 t) and chicken (0.3 t) food groups.  This isn’t because these food groups dominate intake in the US diet, but rather that they are relatively carbon intensive to produce, in particular beef and dairy.</p>
+
+<p>The remaining food footprint is reasonably well distributed across other groups like cereals, vegetables, fruit, oils, sugars and drinks.</p>
+
+<p>Each of these diets are a variations on the average diet.  We assume the Meat Lover eats more red meat, white meat and dairy in place of some cereals, fruit and vegetables.  The No Beef option switches all beef consumption to the chicken group.  The Vegetarian switches away from beef and chicken to fruit and vegetables, while also reducing oils and snacks.  The Vegan does much the same as the vegetarian while also eliminating dairy through further switching to cereals, fruits and vegetables.  Despite all these changes 60% of food energy comes from exactly the same sources in all four diets of these diets.
+
+<p> Note: Figures are based on total food supplied, so they include emissions from food consumed, losses, and spoilage.  Estimates based off 2005 data.</p>
 
 <p></p>
       </div>
@@ -31,26 +43,28 @@
         <div class="row">
           <div class='col-md-12' >
             <div id="chart0">
-              <!-- <p>Lorem ipsum dolor sit amet</p> -->
 
             </div>
           </div>
         </div>
-      </div>
+      <!-- </div> -->
 
 
+    <div class="row"><!--added in car, tet -->
 
       <div class = "col-md-12 exploration_text" id="text2">
         <p>Despite the fact that 60% of each of these diets are the same, the footprints vary greatly.  The ‘Average diet’ is based on the typical American diet and has a footprint of 2.5 t CO<sub>2</sub>equivalent per year.  The Meat Lover is 3.3 t, No Beef 1.9 t, the Vegetarian 1.7 t and the Vegan 1.5 t.</p>
         <p>Read more at <a href="http://shrinkthatfootprint.com/shrink-your-food-footprint">http://shrinkthatfootprint.com/shrink-your-food-footprint</a></p>
 
-
-        <p>By making changes in our individual diets, we can save CO<sub>2</sub>!  What would happen if you changed your diet for a year?</p>
+        
+        <p>By making changes in our individual diets, we can reduce our carbon footprint! What would happen if you changed your diet for a year? Or for a few weeks?</p>
 
       </div>
+    </div><!--added in car, tet -->
 
+     <div class="row">  <!--added in car, tet -->
       <div class="col-md-4 diet_selector">
-        <p><strong>Instructions: </strong><br>
+        <!-- <p><strong>Instructions: </strong><br> -->
         </p>
         <p>Choose your current diet: <p>
           Diet: <select id="dietselector1">
@@ -63,8 +77,8 @@
             </select>
       </div>
 
-      <div class="col-md-4 diet_selector" >
-        <p><strong>Instructions: </strong><br>
+      <div class="col-md-8 diet_selector">
+        <!-- <p><strong>Instructions: </strong><br> -->
         </p>
         <p>Choose a different diet and the number of weeks to try:<p>
           <!-- <select onchange = "getchoice2()" id="dietselector2"> -->
@@ -132,11 +146,11 @@
   <option value="52" selected>52</option>
 </select>
 <span>Weeks</span>
-      </div>
+</div>
 
+</div> <!--added in car, tet -->
 
-
-      <div class="container">
+      <!-- <div class="container"> removed in car, test-->
           <div class="row">
             <div class= "col-md-4" >
                 <div id="chart1"></div>
@@ -165,13 +179,19 @@
             </div>
         </div>
 
-      
+      <div class = "row"> <!--added in car, test -->
 
       <div class = "col-md-12 exploration_text" id="text3">
-        <p></p>
-<p> </p>
+        <p>Because the majority of food supply emissions occur during production, changing your diet is the most effective way to shrink your footprint.  Reducing your consumption of beef, lamb and dairy products will have the largest effect, due to their high carbon intensity.  Additional reductions may also be found by limiting consumption of other meats and certain types of fruits.</p>
+
+        <p>Trying to change your own diet habits is a pretty personal thing.  You may find it easy to reduce beef consumption but be addicted to cheese.  Generally though, there will always be a simple way to start.  You could try being vegetarian, or vegan, for a day at a time to see what you miss and what you don’t.  Between learning more and experimenting with your diet you may be able to make very large reductions that also benefit your health, and possibly your bank balance.</p>
+
+        <p><em>Visualization created for SI 649 (UMich) Fall 2016 by Stephanie Miller.  Charts (estimated) based off figure comparing carbon footprint of five diets on <a href="http://shrinkthatfootprint.com/shrink-your-food-footprint">http://shrinkthatfootprint.com/shrink-your-food-footprint</a>. Text from same site.  There are many more factors that go into reducing your food footprint such as waste - and the referenced site analyzes them in detail. </em> </p>
+
       </div>
       </div>
+
+    </div> <!--added in car, tet -->
 
 
       <script type="text/javascript">
