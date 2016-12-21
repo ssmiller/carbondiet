@@ -647,7 +647,9 @@ max: 1.75,
 
 ////////////  Functions
 
-
+function c0_all() {
+  chart0.show(["Beef, lamb","Chicken, fish, pork","Dairy","Cereals, breads", "Vegetables","Fruit","Oils, spreads","Snacks, sugar","Drinks", "Total"]);
+}
 
 function c1_all() {
   chart1.show(["Beef, lamb","Chicken, fish, pork","Dairy","Cereals, breads", "Vegetables","Fruit","Oils, spreads","Snacks, sugar","Drinks"]);
@@ -671,21 +673,6 @@ function c3_total() {
 }
 
 
-function c0_all() {
-  chart0.show(["Beef, lamb","Chicken, fish, pork","Dairy","Cereals, breads", "Vegetables","Fruit","Oils, spreads","Snacks, sugar","Drinks", "Total"]);
-}
-
-function c6_breakdown() {
-  chart3.show(["Beef, lamb","Chicken, fish, pork","Dairy","Cereals, breads", "Vegetables","Fruit","Oils, spreads","Snacks, sugar","Drinks"]);
-  chart3.hide(["Total"]);
-}
-
-function c6_total() {
-  chart3.hide(["Beef, lamb","Chicken, fish, pork","Dairy","Cereals, breads", "Vegetables","Fruit","Oils, spreads","Snacks, sugar","Drinks"]);
-  chart3.show(["Total"]);
-}
-
-
 function calculateNewDiet(olddiet, newdiet, weeks) {
       console.log(olddiet);
       console.log(newdiet);
@@ -702,9 +689,6 @@ function calculateNewDiet(olddiet, newdiet, weeks) {
     console.log(combined);
       return combined;
   }
-
-
-
 
 
 function updateCharts() {
